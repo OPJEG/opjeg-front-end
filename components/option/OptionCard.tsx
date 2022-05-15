@@ -6,7 +6,7 @@ const StyledCol = styled(Col, { p: 0 })
 
 export default function OptionCard() {
   return (
-    <Card hoverable>
+    <Card hoverable css={{ border: '10px solid #fff'}}>
       <Card.Body css={{ p: 0 }}>
         <Card.Image
           src="placeholder.png"
@@ -15,7 +15,7 @@ export default function OptionCard() {
           />
       </Card.Body>
 
-      <Card.Footer>
+      <Card.Footer css={{ p: '0.5rem' }}>
         <Container fluid css={{ p: 0 }}>
           <StyledRow>
             <StyledCol css={{ p: 0 }}>
@@ -68,7 +68,9 @@ export default function OptionCard() {
                 auto
                 rounded
                 css={{ marginLeft: 'auto' }}
-                >Buy Now</Button>
+              >
+                Buy Now
+              </Button>
             </StyledCol>
           </StyledRow>
         </Container>

@@ -5,13 +5,13 @@ export default function Navbar() {
   return (
     <>
       <Container fluid css={{ backdropFilter: 'blur(100px)', borderBottom: '1px solid #efefef' }}>
-        <Row css={{ alignItems: 'center' }}>
+        <Row css={{ alignItems: 'center', h: "$24" }}>
           <Image
             objectFit="cover"
             src="logo.png"
             alt="OBJEG Logo"
-            width="140"
-            height="366" align-items='center'
+            width="350px"
+            align-items='center'
             />
           <Col>
             <NextLink href="/">

@@ -16,9 +16,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       <NextUIProvider>
         <Image
           src="polygon-object.png"
-          alt=""
-          width={600}
-          height={400}
+          width={400}
+          height={200}
           objectFit='cover'
           containerCss={{
             position: 'fixed',
