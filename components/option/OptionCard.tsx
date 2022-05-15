@@ -1,4 +1,5 @@
-import { styled, Container, Row, Col, Card, Text, Avatar, Button } from "@nextui-org/react";
+import { styled, Container, Row, Col, Card, Text, User, Button, Spacer, Image } from "@nextui-org/react";
+import EthAmount from '../EthAmount'
 
 const StyledRow = styled(Row, { m: 0 })
 const StyledCol = styled(Col, { p: 0 })
@@ -16,40 +17,58 @@ export default function OptionCard() {
 
       <Card.Footer>
         <Container fluid css={{ p: 0 }}>
-          <StyledRow gap={1}>
+          <StyledRow>
             <StyledCol css={{ p: 0 }}>
               <Text h3>TokenID</Text>
               <Text b>Collection Name</Text>
             </StyledCol>
 
             <StyledCol>
-              <Text h3 color="green" text-align="right">0.25 ETH</Text>
+              <EthAmount
+                amount={22}
+                css={{
+                  fontSize: '16pt',
+                  fontWeight: 'bold',
+                  color: 'green',
+                  justifyContent: 'end'
+                }} />
             </StyledCol>
           </StyledRow>
 
-          <StyledRow gap={1}>
+          <Spacer y={0.3} />
+
+          <StyledRow>
             <StyledCol>
-              <Text>Floor Price</Text>
-              <Text>20 ETH</Text>
+              <Text css={{ fs: '90%', mb: '-5px' }}>Floor Price</Text>
+              <EthAmount amount={20} />
             </StyledCol>
 
-            <StyledCol>
-              <Text>Strike Price</Text>
-              <Text>22 ETH</Text>
+            <StyledCol css={{textAlign: 'right'}}>
+              <Text css={{ fs: '90%', mb: '-5px' }}>Strike Price</Text>
+              <EthAmount amount={22} css={{ justifyContent: 'end' }} />
             </StyledCol>
           </StyledRow>
 
-          <StyledRow gap={1}>
+          <StyledRow css={{
+            borderTop: '1px solid #ccc',
+            marginTop: '0.5rem',
+            paddingTop: '0.5rem',
+            alignItems: 'center'
+            }}>
             <StyledCol>
-              <Avatar
-                src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
+              <User
+                name="0xc92fa..."
                 size="sm"
+                css={{ p: 0 }}
               />
-              <Text>by Min</Text>
             </StyledCol>
 
             <StyledCol>
-              <Button auto>Buy Now</Button>
+              <Button
+                auto
+                rounded
+                css={{ marginLeft: 'auto' }}
+                >Buy Now</Button>
             </StyledCol>
           </StyledRow>
         </Container>

@@ -1,19 +1,20 @@
-import { Text } from '@nextui-org/react';
+import { Container, Text } from '@nextui-org/react';
 
 export default function SectionHead({ title , subtitle }: { title: string, subtitle: string }) {
   return (
-    <div style={{ padding: '4rem 0' }}>
+    <Container css={{ padding: '4rem 0', textAlign: 'center' }}>
       <Text
         h1
-        text-align="center"
-        css={{ textGradient: "45deg, $blue600 20%, $pink600 60%" }}
+        css={{
+          textGradient: '45deg, $blue600 20%, $pink600 60%'
+        }}
         >
         { title }
       </Text>
 
-      <Text size="1.5rem" text-align="center">
+      <Text size="1.5rem">
         { subtitle }
       </Text>
-    </div>
+    </Container>
   )
 }

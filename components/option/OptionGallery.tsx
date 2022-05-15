@@ -13,7 +13,7 @@ export default function OptionGallery({ title }: { title: string }) {
             <Col>
               <Text b transform='uppercase'>{ title }</Text>
             </Col>
-            <Col text-align="right">
+            <Col css={{ textAlign: 'right' }}>
               <Text b>10 items</Text>
             </Col>
           </Row>
