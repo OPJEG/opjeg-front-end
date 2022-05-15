@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { Container, Row, Col, Grid, Card, Text, Image } from "@nextui-org/react";
-import SectionHead from '../components/sectionHead'
+import SectionHead from '../components/SectionHead'
 import OptionGallery from '../components/option/OptionGallery'
 
 const Home: NextPage = () => {

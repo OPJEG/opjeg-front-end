@@ -14,7 +14,7 @@ export default function Navbar() {
           <Col>
             <Text>Marketplace | My Page | About</Text>
           </Col>
-          <Col align="right">
+          <Col>
             <Button>Connect Wallet</Button>
           </Col>
         </Row>

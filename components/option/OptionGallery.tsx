@@ -4,7 +4,7 @@ import OptionCard from './OptionCard'
 const StyledRow = styled(Row, { m: 0 })
 const StyledCol = styled(Col, { p: 0 })
 
-export default function OptionGallery({ title }) {
+export default function OptionGallery({ title }: { title: string }) {
   return (
     <>
       <Container>
@@ -13,7 +13,7 @@ export default function OptionGallery({ title }) {
             <Col>
               <Text b transform='uppercase'>{ title }</Text>
             </Col>
-            <Col align="right">
+            <Col text-align="right">
               <Text b>10 items</Text>
             </Col>
           </Row>

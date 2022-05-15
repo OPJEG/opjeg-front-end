@@ -3,7 +3,7 @@ import { styled, Container, Row, Col, Card, Text, Avatar, Button } from "@nextui
 const StyledRow = styled(Row, { m: 0 })
 const StyledCol = styled(Col, { p: 0 })
 
-export default function OptionCard({ text }) {
+export default function OptionCard() {
   return (
     <Card hoverable>
       <Card.Body css={{ p: 0 }}>
@@ -23,7 +23,7 @@ export default function OptionCard({ text }) {
             </StyledCol>
 
             <StyledCol>
-              <Text h3 color="green" align="right">0.25 ETH</Text>
+              <Text h3 color="green" text-align="right">0.25 ETH</Text>
             </StyledCol>
           </StyledRow>
 
