@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import { Container, Row, Col, Grid, Card, Text, Image } from "@nextui-org/react";
+import { Spacer } from "@nextui-org/react";
 import SectionHead from '../components/SectionHead'
 import OptionGallery from '../components/option/OptionGallery'
 
@@ -12,6 +12,7 @@ const Home: NextPage = () => {
         />
 
       <OptionGallery title="Call Options" />
+      <Spacer y={3} />
       <OptionGallery title="Put Options" />
     </main>
   )

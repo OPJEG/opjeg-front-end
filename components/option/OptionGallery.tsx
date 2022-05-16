@@ -21,7 +21,7 @@ export default function OptionGallery({ title }: { title: string }) {
       </Container>
 
       <Container>
-        <Grid.Container gap={2}>
+        <Grid.Container gap={1}>
           <Grid xs={2}>
             <OptionCard/>
           </Grid>

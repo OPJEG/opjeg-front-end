@@ -1,7 +1,13 @@
+import React, { useState } from 'react'
 import NextLink from 'next/link'
 import { Container, Row, Col, Text, Image, Button, Spacer, Link } from "@nextui-org/react";
+import WalletService from '../services/WalletService'
+
+const walletService = new WalletService()
 
 export default function Navbar() {
+  const [connectedAccount, setConnectedAccount] = useState(null)
+
   return (
     <>
       <Container fluid css={{ backdropFilter: 'blur(100px)' }}>
@@ -25,7 +31,31 @@ export default function Navbar() {
             </NextLink>
           </Col>
           <Col>
-            <Button ghost color="secondary" css={{ marginLeft: 'auto' }}>Connect Wallet</Button>
+            { !connectedAccount &&
+              <Button
+                ghost
+                color="secondary"
+                css={{ marginLeft: 'auto' }}
+                onClick={() => walletService.connect(setConnectedAccount)}
+                >Connect Wallet</Button>
+            }
+            { !!connectedAccount &&
+              <Container>
+                <Row align="center">
+                  <Col>
+                    <Text>{ connectedAccount }</Text>
+                  </Col>
+                  <Spacer x={1} />
+                  <Col>
+                    <Button
+                      ghost
+                      color="secondary"
+                      onClick={() => walletService.disconnect(setConnectedAccount)}
+                      >Disconnect</Button>
+                  </Col>
+                </Row>
+              </Container>
+            }
           </Col>
         </Row>
       </Container>

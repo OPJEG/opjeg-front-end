@@ -69,7 +69,7 @@ export default function OptionCard() {
                 rounded
                 css={{ marginLeft: 'auto' }}
               >
-                Buy Now
+                Buy
               </Button>
             </StyledCol>
           </StyledRow>
