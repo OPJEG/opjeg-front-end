@@ -1,7 +1,7 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import { NextUIProvider, Image } from '@nextui-org/react'
+import { NextUIProvider, Container, Spacer, Image } from '@nextui-org/react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 

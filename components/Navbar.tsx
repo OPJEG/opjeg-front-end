@@ -4,7 +4,7 @@ import { Container, Row, Col, Text, Image, Button, Spacer, Link } from "@nextui-
 export default function Navbar() {
   return (
     <>
-      <Container fluid css={{ backdropFilter: 'blur(100px)', borderBottom: '1px solid #efefef' }}>
+      <Container fluid css={{ backdropFilter: 'blur(100px)' }}>
         <Row css={{ alignItems: 'center', h: "$24" }}>
           <Image
             objectFit="cover"
