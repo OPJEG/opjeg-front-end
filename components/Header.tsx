@@ -1,6 +1,6 @@
 import { Container, Text } from '@nextui-org/react';
 
-export default function SectionHead({ title , subtitle }: { title: string, subtitle: string }) {
+export default function Header({ title , subtitle }: { title: string, subtitle: string }) {
   return (
     <Container css={{ padding: '4rem 0', textAlign: 'center' }}>
       <Text
