@@ -1,5 +1,5 @@
 import { styled, Container, Row, Col, Card, Text, User, Button, Spacer, Image } from "@nextui-org/react";
-import EthAmount from '../EthAmount'
+import EthAmount from 'components/EthAmount'
 
 const StyledRow = styled(Row, { m: 0 })
 const StyledCol = styled(Col, { p: 0 })

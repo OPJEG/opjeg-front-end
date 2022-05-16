@@ -1,5 +1,5 @@
 import { Text } from '@nextui-org/react';
-import EthSymbol from './EthSymbol'
+import EthSymbol from 'components/EthSymbol'
 
 export default function EthAmount({ amount, css }: { amount: number, css?: any }) {
   return (

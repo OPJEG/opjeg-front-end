@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import NextLink from 'next/link'
 import { Container, Row, Col, Text, Image, Button, Spacer, Link } from "@nextui-org/react";
-import WalletService from '../services/WalletService'
+import WalletService from 'services/WalletService'
 
 const walletService = new WalletService()
 

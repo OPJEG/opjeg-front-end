@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import SectionHead from '../../components/SectionHead'
+import SectionHead from 'components/SectionHead'
 
 const AccountOptions: NextPage = () => {
   return (
