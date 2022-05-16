@@ -15,10 +15,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <NextUIProvider>
         <Image
-          src="polygon-object.png"
+          src="/polygon-object.png"
           width={400}
           height={200}
           objectFit='cover'
+          alt=''
           containerCss={{
             position: 'fixed',
             borderRadius: 0,

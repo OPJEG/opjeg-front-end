@@ -12,21 +12,24 @@ export default function Navbar() {
     <>
       <Container fluid css={{ backdropFilter: 'blur(100px)' }}>
         <Row css={{ alignItems: 'center', h: "$24" }}>
-          <Image
-            objectFit="cover"
-            src="logo.png"
-            alt="OBJEG Logo"
-            width="350px"
-            align-items='center'
-            />
+          <NextLink href="/">
+            <Image
+              objectFit="cover"
+              src="/logo.png"
+              alt="OBJEG Logo"
+              width="350px"
+              align-items='center'
+              css={{ cursor: 'pointer' }}
+              />
+          </NextLink>
           <Col>
             <NextLink href="/">
               <Link underline color="text" css={{ m: '0 1rem', fontWeight: 'bold' }}>Marketplace</Link>
             </NextLink>
-            <NextLink href="/example">
+            <NextLink href="/account/options">
               <Link underline color="text" css={{ m: '0 1rem', fontWeight: 'bold' }}>My Options</Link>
             </NextLink>
-            <NextLink href="/">
+            <NextLink href="/about">
               <Link underline color="text" css={{ m: '0 1rem', fontWeight: 'bold' }}>About</Link>
             </NextLink>
           </Col>
