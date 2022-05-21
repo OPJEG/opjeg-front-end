@@ -4,7 +4,7 @@ import EthAmount from '../EthAmount'
 const StyledRow = styled(Row, { m: 0 })
 const StyledCol = styled(Col, { p: 0 })
 
-export default function OptionCard() {
+export default function OptionCard({ footer }: any) {
   return (
     <Card hoverable css={{ border: '10px solid #fff'}}>
       <Card.Body css={{ p: 0 }}>
@@ -49,30 +49,7 @@ export default function OptionCard() {
             </StyledCol>
           </StyledRow>
 
-          <StyledRow css={{
-            borderTop: '1px solid #ccc',
-            marginTop: '0.5rem',
-            paddingTop: '0.5rem',
-            alignItems: 'center'
-            }}>
-            <StyledCol>
-              <User
-                name="0xc92fa..."
-                size="sm"
-                css={{ p: 0 }}
-              />
-            </StyledCol>
-
-            <StyledCol>
-              <Button
-                auto
-                rounded
-                css={{ marginLeft: 'auto' }}
-              >
-                Buy
-              </Button>
-            </StyledCol>
-          </StyledRow>
+          { footer }
         </Container>
       </Card.Footer>
     </Card>

@@ -1,10 +1,10 @@
-import { styled, Container, Row, Col, Grid, Card, Text } from "@nextui-org/react";
+import { styled, Container, Row, Col, Grid, Card, Text, Spacer } from "@nextui-org/react";
 import OptionCard from './OptionCard'
 
 const StyledRow = styled(Row, { m: 0 })
 const StyledCol = styled(Col, { p: 0 })
 
-export default function OptionGallery({ title }: { title: string }) {
+export default function OptionGallery({ title, footer }: { title: string, footer: any }) {
   return (
     <>
       <Container>
@@ -20,31 +20,33 @@ export default function OptionGallery({ title }: { title: string }) {
         </Card>
       </Container>
 
+      <Spacer y={1} />
+
       <Container>
         <Grid.Container gap={1}>
           <Grid xs={2}>
-            <OptionCard/>
+            <OptionCard footer={footer} />
           </Grid>
           <Grid xs={2}>
-            <OptionCard/>
+            <OptionCard footer={footer} />
           </Grid>
           <Grid xs={2}>
-            <OptionCard/>
+            <OptionCard footer={footer} />
           </Grid>
           <Grid xs={2}>
-            <OptionCard/>
+            <OptionCard footer={footer} />
           </Grid>
           <Grid xs={2}>
-            <OptionCard/>
+            <OptionCard footer={footer} />
           </Grid>
           <Grid xs={2}>
-            <OptionCard/>
+            <OptionCard footer={footer} />
           </Grid>
           <Grid xs={2}>
-            <OptionCard/>
+            <OptionCard footer={footer} />
           </Grid>
           <Grid xs={2}>
-            <OptionCard/>
+            <OptionCard footer={footer} />
           </Grid>
         </Grid.Container>
       </Container>

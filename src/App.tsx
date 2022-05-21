@@ -4,9 +4,9 @@ import { NextUIProvider, Container, Spacer, Image } from '@nextui-org/react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import { OpjegProvider } from './providers/OpjegProvider'
-import Index from './views/index'
-import About from './views/about'
-import AccountOptions from './views/account/options'
+import Marketplace from './views/marketplace/MarketplacePage'
+import AboutPage from './views/about/AboutPage'
+import AccountOptions from './views/account/OptionsPage'
 
 export default function App() {
   return (
@@ -30,8 +30,8 @@ export default function App() {
             <Navbar />
               <Routes>
                 <Route path="/account/options" element={<AccountOptions />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/" element={<Index />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/" element={<Marketplace />} />
               </Routes>
             <Footer />
           </HashRouter>
