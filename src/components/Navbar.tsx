@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import NextLink from 'next/link'
 import { Container, Row, Col, Text, Image, Button, Spacer, Link } from "@nextui-org/react";
-import WalletService from 'services/WalletService'
+import WalletService from '../services/WalletService'
 
 const walletService = new WalletService()
 
@@ -12,7 +11,7 @@ export default function Navbar() {
     <>
       <Container fluid css={{ backdropFilter: 'blur(100px)' }}>
         <Row css={{ alignItems: 'center', h: "$24" }}>
-          <NextLink href="/">
+          <Link href="/">
             <Image
               objectFit="cover"
               src="/logo.png"
@@ -21,17 +20,11 @@ export default function Navbar() {
               align-items='center'
               css={{ cursor: 'pointer' }}
               />
-          </NextLink>
+          </Link>
           <Col>
-            <NextLink href="/">
-              <Link underline color="text" css={{ m: '0 1rem', fontWeight: 'bold' }}>Marketplace</Link>
-            </NextLink>
-            <NextLink href="/account/options">
-              <Link underline color="text" css={{ m: '0 1rem', fontWeight: 'bold' }}>My Options</Link>
-            </NextLink>
-            <NextLink href="/about">
-              <Link underline color="text" css={{ m: '0 1rem', fontWeight: 'bold' }}>About</Link>
-            </NextLink>
+              <Link href="/" underline color="text" css={{ m: '0 1rem', fontWeight: 'bold' }}>Marketplace</Link>
+              <Link href="/#/account/options" underline color="text" css={{ m: '0 1rem', fontWeight: 'bold' }}>My Options</Link>
+              <Link href="/#/about" underline color="text" css={{ m: '0 1rem', fontWeight: 'bold' }}>About</Link>
           </Col>
           <Col>
             { !connectedAccount &&

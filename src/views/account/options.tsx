@@ -1,7 +1,6 @@
-import type { NextPage } from 'next'
 // import SectionHead from 'components/SectionHead'
 
-const AccountOptions: NextPage = () => {
+const AccountOptions = () => {
   return (
     <main>
 {/*      <SectionHead

@@ -1,9 +1,8 @@
-import type { NextPage } from 'next'
 import { Spacer } from "@nextui-org/react";
-import Header from 'components/Header'
-import OptionGallery from 'components/option/OptionGallery'
+import Header from '../components/Header'
+import OptionGallery from '../components/option/OptionGallery'
 
-const Home: NextPage = () => {
+const Home = () => {
   return (
     <main>
       <Header
