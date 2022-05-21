@@ -6,7 +6,7 @@ const StyledRow = styled(Row, { m: 0 })
 export default function HoldingCardFooter() {
   return (
     <StyledRow css={{
-      borderTop: '1px solid #ccc',
+      borderTop: '1px solid #f4f4f4',
       marginTop: '0.5rem',
       paddingTop: '0.5rem',
       alignItems: 'center'

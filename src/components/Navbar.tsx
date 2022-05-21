@@ -32,7 +32,7 @@ export default function Navbar() {
                 ghost
                 color="secondary"
                 css={{ marginLeft: 'auto' }}
-                onClick={() => walletService.connect(setConnectedAccount)}
+                onPress={() => walletService.connect(setConnectedAccount)}
                 >Connect Wallet</Button>
             }
             { !!connectedAccount &&
@@ -46,7 +46,7 @@ export default function Navbar() {
                     <Button
                       ghost
                       color="secondary"
-                      onClick={() => walletService.disconnect(setConnectedAccount)}
+                      onPress={() => walletService.disconnect(setConnectedAccount)}
                       >Disconnect</Button>
                   </Col>
                 </Row>

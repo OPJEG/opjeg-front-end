@@ -6,7 +6,7 @@ import Footer from './components/Footer'
 import { OpjegProvider } from './providers/OpjegProvider'
 import Marketplace from './views/marketplace/MarketplacePage'
 import AboutPage from './views/about/AboutPage'
-import AccountOptions from './views/account/OptionsPage'
+import AccountOptionsPage from './views/account/AccountOptionsPage'
 
 export default function App() {
   return (
@@ -29,7 +29,7 @@ export default function App() {
               }} />
             <Navbar />
               <Routes>
-                <Route path="/account/options" element={<AccountOptions />} />
+                <Route path="/account/options" element={<AccountOptionsPage />} />
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/" element={<Marketplace />} />
               </Routes>

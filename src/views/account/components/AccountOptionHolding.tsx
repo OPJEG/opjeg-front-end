@@ -1,8 +1,8 @@
 import { Spacer } from "@nextui-org/react"
-import OptionGallery from '../../components/option/OptionGallery'
-import HoldingCardFooter from '../../components/option/HoldingCardFooter'
+import OptionGallery from '../../../components/option/OptionGallery'
+import HoldingCardFooter from '../../../components/option/HoldingCardFooter'
 
-const AccountHolding = () => {
+const AccountOptionHolding = () => {
   return (
     <>
       <OptionGallery title="Your Holding Calls" footer={<HoldingCardFooter />} />
@@ -12,4 +12,4 @@ const AccountHolding = () => {
   )
 }
 
-export default AccountHolding
+export default AccountOptionHolding
