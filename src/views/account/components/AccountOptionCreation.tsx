@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Container, Card, Row, Col, Text, Spacer, Button, Input } from "@nextui-org/react"
+import { Container, Card, Row, Col, Text, Spacer, Button, Input, Avatar } from "@nextui-org/react"
 
 import OptionGallery from '../../../components/option/OptionGallery'
 import HoldingCardFooter from '../../../components/option/HoldingCardFooter'
@@ -40,10 +40,16 @@ const AccountOptionCreation = () => {
           <Row css={{ pb: '15px', borderBottom: '1px solid #efefef'}}>
             <Text h4 transform='uppercase'>Create New Option</Text>
           </Row>
-          <Row align="flex-end" css={{ pt: '15px' }}>
+          <Row css={{ pt: '15px' }}>
+            <Col><Text size='$xs'>Type</Text></Col>
+            <Col><Text size='$xs'>NFT Token</Text></Col>
+            <Col><Text size='$xs'>Strike Price</Text></Col>
+            <Col><Text size='$xs'>Expires At</Text></Col>
+            <Col><Text>&nbsp;</Text></Col>
+          </Row>
+          <Row>
             <Col>
               <Container css={{ p: 0 }}>
-                <label style={{ fontSize: '14px' }}>Type</label>
                 <Row justify="flex-start">
                   <OptionTypeGroup />
                 </Row>
@@ -51,9 +57,13 @@ const AccountOptionCreation = () => {
             </Col>
             <Col>
               <Container css={{ p: 0 }}>
-                <label style={{ fontSize: '14px' }}>NFT Token ID</label>
-                <Row justify="flex-start">
-                  <Text>{ selectedNft && (selectedNft?.name || '#' + selectedNft?.token_id) }</Text>
+                <Row justify="flex-start" align="center">
+                  { selectedNft &&
+                    <>
+                      <Avatar squared src={selectedNft.image_thumbnail_url} />
+                      <Text>{ selectedNft.name || '#' + selectedNft.token_id }</Text>
+                    </>
+                  }
                   <Button.Group>
                     <Button onPress={() => setShowSelectNft(true)}>Select NFT</Button>
                   </Button.Group>
@@ -66,10 +76,10 @@ const AccountOptionCreation = () => {
               </Container>
             </Col>
             <Col>
-              <Input bordered label="Strike Price" labelRight="ETH" />
+              <Input bordered labelRight="ETH" placeholder='0.00' />
             </Col>
             <Col>
-              <Input bordered label="Expires At" type="date" />
+              <Input bordered type="date" />
             </Col>
             <Col>
               <Button>Create Option</Button>
@@ -80,9 +90,9 @@ const AccountOptionCreation = () => {
 
       <Spacer y={1} />
 
-      <OptionGallery title="Your Holding Calls" footer={<HoldingCardFooter />} />
+      <OptionGallery title="Your Created Calls" footer={<HoldingCardFooter />} />
       <Spacer y={3} />
-      <OptionGallery title="Your Holding Puts" footer={<HoldingCardFooter />} />
+      <OptionGallery title="Your Created Puts" footer={<HoldingCardFooter />} />
     </>
   )
 }

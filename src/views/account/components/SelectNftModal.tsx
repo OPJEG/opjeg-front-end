@@ -5,6 +5,7 @@ import { collections } from '../../../constants/collections'
 export interface Asset {
   name: string
   image_preview_url: string
+  image_thumbnail_url: string
   token_id: string
   permalink: string
   asset_contract: {
