@@ -15,4 +15,7 @@ export default interface NFT {
   collection: {
     name: string
   }
+  owner: {
+    address: string
+  }
 }
