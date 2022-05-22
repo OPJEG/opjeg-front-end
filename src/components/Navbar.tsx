@@ -17,7 +17,7 @@ export default function Navbar() {
               objectFit="cover"
               src="/logo.png"
               alt="OBJEG Logo"
-              width="350px"
+              width="200px"
               align-items='center'
               css={{ cursor: 'pointer' }}
               />
