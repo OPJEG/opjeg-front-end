@@ -23,7 +23,7 @@ export default function Navbar() {
               />
           </Link>
           <Col>
-              <Link href="/" underline color="text" css={{ m: '0 1rem', fontWeight: 'bold' }}>Marketplace</Link>
+              <Link href="/#" underline color="text" css={{ m: '0 1rem', fontWeight: 'bold' }}>Marketplace</Link>
               <Link href="/#/account/options" underline color="text" css={{ m: '0 1rem', fontWeight: 'bold' }}>My Options</Link>
               <Link href="/#/about" underline color="text" css={{ m: '0 1rem', fontWeight: 'bold' }}>About</Link>
           </Col>
