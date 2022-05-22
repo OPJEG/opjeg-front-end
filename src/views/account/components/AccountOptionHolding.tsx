@@ -3,7 +3,6 @@ import { Container, Card, Row, Col, Text, Spacer, Grid } from "@nextui-org/react
 import { useWeb3React } from "@web3-react/core"
 
 import { opjegContract } from '../../../constants/opjegContract'
-import OptionGallery from '../../../components/option/OptionGallery'
 import HoldingOptionCard from '../../../components/option/HoldingOptionCard'
 
 const AccountOptionHolding = () => {

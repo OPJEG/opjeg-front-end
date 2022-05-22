@@ -18,8 +18,8 @@ const OptionsPage = () => {
   const TabGroup = () => {
     return (
       <Button.Group size="xl" color="gradient">
-        <Button onPress={() => setActiveTab(Tabs.HOLDING)} bordered={activeTab != Tabs.HOLDING}>Holding</Button>
-        <Button onPress={() => setActiveTab(Tabs.CREATED)} bordered={activeTab != Tabs.CREATED}>Created</Button>
+        <Button onPress={() => setActiveTab(Tabs.HOLDING)} bordered={activeTab != Tabs.HOLDING}>Hold</Button>
+        <Button onPress={() => setActiveTab(Tabs.CREATED)} bordered={activeTab != Tabs.CREATED}>Create</Button>
       </Button.Group>
     )
   }

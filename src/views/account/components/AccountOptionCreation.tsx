@@ -5,7 +5,6 @@ import { useWeb3React } from "@web3-react/core"
 
 import { opjegContract } from '../../../constants/opjegContract'
 import { useOpjegFactory } from '../../../hooks/useOpjegFactory'
-import OptionGallery from '../../../components/option/OptionGallery'
 import CreatedOptionCard from '../../../components/option/CreatedOptionCard'
 import SelectNftModal from './SelectNftModal'
 
