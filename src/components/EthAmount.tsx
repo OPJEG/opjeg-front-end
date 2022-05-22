@@ -1,10 +1,10 @@
 import { Text } from '@nextui-org/react';
 import EthSymbol from './EthSymbol'
 
-export default function EthAmount({ amount, css }: { amount: number, css?: any }) {
+export default function EthAmount({ amount, css }: { amount: number | null, css?: any }) {
   return (
     <Text css={{ ...css, display: 'flex', alignItems: 'center' }}>
-      <EthSymbol /> { amount } ETH
+      <EthSymbol /> { amount || '-' } ETH
     </Text>
   )
 }

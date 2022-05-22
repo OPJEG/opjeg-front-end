@@ -1,37 +1,91 @@
-import { useState } from "react"
-import { Container, Card, Row, Col, Text, Spacer, Button, Input, Avatar } from "@nextui-org/react"
+import { useState, useEffect, useMemo } from "react"
+import { Container, Card, Grid, Row, Col, Text, Spacer, Button, Input, Avatar } from "@nextui-org/react"
+import { BigNumber, utils } from 'ethers'
+import { useWeb3React } from "@web3-react/core"
 
+import { opjegContract } from '../../../constants/opjegContract'
+import { useOpjegFactory } from '../../../hooks/useOpjegFactory'
 import OptionGallery from '../../../components/option/OptionGallery'
-import HoldingCardFooter from '../../../components/option/HoldingCardFooter'
-import SelectNftModal, { Asset } from './SelectNftModal'
+import CreatedOptionCard from '../../../components/option/CreatedOptionCard'
+import SelectNftModal from './SelectNftModal'
 
-enum OptionType {
-  CALL = 'call',
-  PUT = 'put',
-}
+import NFT from '../../../interfaces/NFT'
+import OptionType from '../../../interfaces/OptionType'
 
 const AccountOptionCreation = () => {
-  const [activeType, setActiveType] = useState<OptionType>(OptionType.CALL)
-  const [showSelectNft, setShowSelectNft] = useState(false);
-  const [selectedNft, setSelectedNft] = useState<Asset|null>(null);
+  const { mintCall, mintPut } = useOpjegFactory()
+
+  const [optionType, setOptionType] = useState<OptionType>(OptionType.CALL)
+  const [showSelectNft, setShowSelectNft] = useState(false)
+
+  // Create option state
+  const [selectedNft, setSelectedNft] = useState<NFT|null>(null)
+  const [strikePrice, setStrikePrice] = useState<BigNumber|null>(null)
+  const [expiryDate, setExpiryDate] = useState<Date|null>(null)
+
+  const enableSubmit = useMemo(() => {
+    return selectedNft && strikePrice && expiryDate
+  }, [selectedNft, strikePrice, expiryDate])
 
   const OptionTypeGroup = () => {
     return (
-      <Button.Group>
-        <Button onPress={() => setActiveType(OptionType.CALL)} bordered={activeType != OptionType.CALL}>CALL</Button>
-        <Button onPress={() => setActiveType(OptionType.PUT)} bordered={activeType != OptionType.PUT}>PUT</Button>
+      <Button.Group css={{ m: 0 }}>
+        <Button
+          onPress={() => setOptionType(OptionType.CALL)}
+          bordered={optionType != OptionType.CALL}
+        >
+          CALL
+        </Button>
+        <Button
+          onPress={() => setOptionType(OptionType.PUT)}
+          bordered={optionType != OptionType.PUT}
+        >
+          PUT
+        </Button>
       </Button.Group>
     )
   }
 
-  const onSelectedNftModal = (asset: Asset) => {
-    setSelectedNft(asset)
+  const onSelectedNftModal = (nft: NFT) => {
+    setSelectedNft(nft)
     setShowSelectNft(false)
   }
 
   const onCloseSelectNftModal = () => {
     setShowSelectNft(false)
   }
+
+  const onCreateOption = () => {
+    if (!selectedNft) return
+    if (!strikePrice) return
+    if (!expiryDate) return
+
+    switch (optionType) {
+      case OptionType.CALL:
+        mintCall(selectedNft, strikePrice, expiryDate)
+        break
+
+      case OptionType.PUT:
+        mintPut()
+        break
+    }
+  }
+
+  const { account, active, chainId } = useWeb3React()
+  const [createdOptions, setCreatedOptions] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  const options = {method: 'GET', headers: {Accept: 'application/json'}}
+
+  useEffect(() => {
+    if (!active || !chainId) return
+
+    fetch(`https://testnets-api.opensea.io/api/v1/assets?owner=${account}&asset_contract_address=${opjegContract[chainId]}&order_direction=desc&limit=100&include_orders=false`, options)
+      .then(response => response.json())
+      .then(response => setCreatedOptions(response.assets))
+      .catch(err => console.error(err))
+      .finally(() => setIsLoading(false))
+  }, [chainId])
 
   return (
     <>
@@ -64,7 +118,7 @@ const AccountOptionCreation = () => {
                       <Text>{ selectedNft.name || '#' + selectedNft.token_id }</Text>
                     </>
                   }
-                  <Button.Group>
+                  <Button.Group css={{ m: 0 }}>
                     <Button onPress={() => setShowSelectNft(true)}>Select NFT</Button>
                   </Button.Group>
                   <SelectNftModal
@@ -76,13 +130,13 @@ const AccountOptionCreation = () => {
               </Container>
             </Col>
             <Col>
-              <Input bordered labelRight="ETH" placeholder='0.00' />
+              <Input bordered labelRight="ETH" placeholder='0.00' onChange={(e) => setStrikePrice(utils.parseUnits(e.target.value))} aria-label="Strike Price" />
             </Col>
             <Col>
-              <Input bordered type="date" />
+              <Input bordered type="date" onChange={(e) => setExpiryDate(new Date(e.target.value))} aria-label="Expire At" />
             </Col>
             <Col>
-              <Button>Create Option</Button>
+              <Button disabled={!enableSubmit} onPress={(e) => enableSubmit && onCreateOption()}>Create Option</Button>
             </Col>
           </Row>
         </Card>
@@ -90,9 +144,32 @@ const AccountOptionCreation = () => {
 
       <Spacer y={1} />
 
-      <OptionGallery title="Your Created Calls" footer={<HoldingCardFooter />} />
-      <Spacer y={3} />
-      <OptionGallery title="Your Created Puts" footer={<HoldingCardFooter />} />
+      <Container>
+        <Card shadow={false} css={{ p: '0.3rem 0' }}>
+          <Row>
+            <Col>
+              <Text b transform='uppercase'>Options You Created</Text>
+            </Col>
+            <Col css={{ textAlign: 'right' }}>
+              <Text b>{ createdOptions.length } items</Text>
+            </Col>
+          </Row>
+        </Card>
+      </Container>
+
+      <Spacer y={1} />
+
+      <Container>
+        <Grid.Container gap={1}>
+          { createdOptions && createdOptions.map((option) => {
+            return (
+              <Grid xs={2}>
+                <CreatedOptionCard option={option} />
+              </Grid>
+            )
+          }) }
+        </Grid.Container>
+      </Container>
     </>
   )
 }

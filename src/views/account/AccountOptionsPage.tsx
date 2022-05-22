@@ -1,5 +1,6 @@
 import { useState } from "react"
-import { Container, Row, Button, Spacer } from "@nextui-org/react"
+import { Container, Row, Button, Spacer, Card } from "@nextui-org/react"
+import { useWeb3React } from "@web3-react/core"
 
 import Header from '../../components/Header'
 import AccountOptionHolding from './components/AccountOptionHolding'
@@ -11,6 +12,7 @@ enum Tabs {
 }
 
 const OptionsPage = () => {
+  const { active } = useWeb3React()
   const [activeTab, setActiveTab] = useState<Tabs>(Tabs.HOLDING)
 
   const TabGroup = () => {
@@ -26,19 +28,31 @@ const OptionsPage = () => {
     <main>
       <Header
         title='My Options'
-        subtitle='Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+        subtitle='Manage the options you hold and created.'
         />
 
-      <Container>
-        <Row justify="center">
-          <TabGroup />
-        </Row>
-      </Container>
+      { !active &&
+        <Container>
+          <Row>
+            <Card color="gradient">Please connect wallet.</Card>
+          </Row>
+        </Container>
+      }
 
-      <Spacer y={1} />
+      { active &&
+        <>
+        <Container>
+          <Row justify="center">
+            <TabGroup />
+          </Row>
+        </Container>
 
-      { activeTab == Tabs.HOLDING && <AccountOptionHolding /> }
-      { activeTab == Tabs.CREATED && <AccountOptionCreation /> }
+        <Spacer y={1} />
+
+        { activeTab == Tabs.HOLDING && <AccountOptionHolding /> }
+        { activeTab == Tabs.CREATED && <AccountOptionCreation /> }
+        </>
+      }
     </main>
   )
 }

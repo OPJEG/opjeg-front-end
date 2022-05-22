@@ -1,11 +1,20 @@
 import { styled, Container, Row, Col, Card, Text, User, Button, Spacer, Image } from "@nextui-org/react";
-import EthAmount from '../EthAmount'
+
+import { useOpjegFactory } from '../../hooks/useOpjegFactory'
 import NFT from '../../interfaces/NFT'
+import EthSymbol from '../EthSymbol'
+import EthAmount from '../EthAmount'
 
 const StyledRow = styled(Row, { m: 0 })
 const StyledCol = styled(Col, { p: 0 })
 
-export default function OptionCard({ option, footer }: { option: NFT, footer: any}) {
+export default function CreatedOptionCard({ option }: { option: NFT }) {
+  const { burnOption } = useOpjegFactory()
+
+  const burnHandler = () => {
+    burnOption(option)
+  }
+
   return (
     <Card hoverable css={{ border: '10px solid #fff'}}>
       <Card.Body css={{ p: 0 }}>
@@ -23,17 +32,6 @@ export default function OptionCard({ option, footer }: { option: NFT, footer: an
               <Text h3>{ option.name || '#' + option.token_id }</Text>
               <Text b>{ option.asset_contract.name }</Text>
             </StyledCol>
-
-            <StyledCol>
-              <EthAmount
-                amount={22}
-                css={{
-                  fontSize: '16pt',
-                  fontWeight: 'bold',
-                  color: 'green',
-                  justifyContent: 'end'
-                }} />
-            </StyledCol>
           </StyledRow>
 
           <Spacer y={0.3} />
@@ -41,16 +39,30 @@ export default function OptionCard({ option, footer }: { option: NFT, footer: an
           <StyledRow>
             <StyledCol>
               <Text css={{ fs: '90%', mb: '-5px' }}>Floor Price</Text>
-              <EthAmount amount={20} />
+              <EthAmount amount={null} />
             </StyledCol>
 
             <StyledCol css={{textAlign: 'right'}}>
               <Text css={{ fs: '90%', mb: '-5px' }}>Strike Price</Text>
-              <EthAmount amount={22} css={{ justifyContent: 'end' }} />
+              <Text css={{ justifyContent: 'end' }}><EthSymbol /> {option.traits.find(t => t.trait_type == 'Strike')?.value}</Text>
             </StyledCol>
           </StyledRow>
 
-          { footer }
+          <StyledRow css={{
+            borderTop: '1px solid #f4f4f4',
+            marginTop: '0.5rem',
+            paddingTop: '0.5rem',
+            alignItems: 'center'
+            }}>
+              <Button
+                auto
+                rounded
+                css={{ margin: 'auto' }}
+                onPress={burnHandler}
+              >
+                Burn
+              </Button>
+          </StyledRow>
         </Container>
       </Card.Footer>
     </Card>

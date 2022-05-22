@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { Container, Row, Col, Text, Image, Button, Spacer, Link } from "@nextui-org/react";
-import WalletService from '../services/WalletService'
+import { useWeb3React } from "@web3-react/core"
 
-const walletService = new WalletService()
+import { useConnectWallet } from "../hooks/useConnectWallet"
 
 export default function Navbar() {
-  const [connectedAccount, setConnectedAccount] = useState(null)
+  const { metamask } = useConnectWallet()
+  const { account, activate, deactivate, active } = useWeb3React()
 
   return (
     <>
@@ -27,26 +28,26 @@ export default function Navbar() {
               <Link href="/#/about" underline color="text" css={{ m: '0 1rem', fontWeight: 'bold' }}>About</Link>
           </Col>
           <Col>
-            { !connectedAccount &&
+            { !active &&
               <Button
                 ghost
                 color="secondary"
                 css={{ marginLeft: 'auto' }}
-                onPress={() => walletService.connect(setConnectedAccount)}
+                onPress={metamask}
                 >Connect Wallet</Button>
             }
-            { !!connectedAccount &&
+            { active &&
               <Container>
                 <Row align="center">
                   <Col>
-                    <Text>{ connectedAccount }</Text>
+                    <Text>{ account }</Text>
                   </Col>
                   <Spacer x={1} />
                   <Col>
                     <Button
                       ghost
                       color="secondary"
-                      onPress={() => walletService.disconnect(setConnectedAccount)}
+                      onPress={deactivate}
                       >Disconnect</Button>
                   </Col>
                 </Row>
