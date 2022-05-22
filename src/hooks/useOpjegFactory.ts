@@ -43,7 +43,6 @@ export const useOpjegFactory = () => {
     const nftAddress = nft.asset_contract.address
     const tokenId = parseInt(nft.token_id)
     const deadline = Math.floor(expiryDate.getTime() / 1000)
-    console.log({ tokenId, strikePrice, deadline })
 
     // Approve Objeg contract to work with the NFT if not approved yet
     const approvedContract = (await getApproved(nftAddress, tokenId)).toLowerCase()
@@ -56,8 +55,52 @@ export const useOpjegFactory = () => {
     return tx.wait()
   }
 
-  const mintPut = async () => {
+  const mintPut = async ( strikePrice: BigNumber, expiryDate: Date) => {
+    if (!active || !chainId) return
 
+    const contract = await getContract()
+    if (!contract) return
+
+    const deadline = Math.floor(expiryDate.getTime() / 1000)
+
+    // Mint the option
+    const tx = await contract['mintPut(uint256,uint256)'](strikePrice, deadline, { value: strikePrice })
+    return tx.wait()
+  }
+
+  const exerciseCall = async (option: NFT) => {
+    if (!active || !chainId) return
+
+    const contract = await getContract()
+    if (!contract) return
+
+    const optionData = await getOptionData(parseInt(option.token_id))
+
+    // Exercise the Call option
+    const optionId = parseInt(option.token_id)
+    const tx = await contract.exerciseCall(optionId, { value: optionData.strikePrice })
+    return tx.wait()
+  }
+
+  const exercisePut = async(option: NFT, nft: NFT) => {
+    if (!active || !chainId) return
+
+    const contract = await getContract()
+    if (!contract) return
+
+    const nftAddress = nft.asset_contract.address
+    const tokenId = parseInt(nft.token_id)
+
+    // Approve Objeg contract to work with the NFT if not approved yet
+    const approvedContract = (await getApproved(nftAddress, tokenId)).toLowerCase()
+    if (approvedContract != opjegContract[chainId]) {
+      await approve(nftAddress, opjegContract[chainId], tokenId)
+    }
+
+    // Exercise the Put option
+    const optionId = parseInt(option.token_id)
+    const tx = await contract.exercisePut(optionId, tokenId)
+    return tx.wait()
   }
 
   const burnOption = async (option: NFT) => {
@@ -72,26 +115,11 @@ export const useOpjegFactory = () => {
     return tx.wait()
   }
 
-  const exerciseCall = async (option: NFT) => {
-    if (!active || !chainId) return
-
-    const contract = await getContract()
-    if (!contract) return
-
-    const optionData = await getOptionData(parseInt(option.token_id))
-
-    console.log(optionData)
-
-    // Exercise the Call option
-    const optionId = parseInt(option.token_id)
-    const tx = await contract.exerciseCall(optionId, { value: optionData.strikePrice })
-    return tx.wait()
-  }
-
   return {
     mintCall,
     mintPut,
-    burnOption,
     exerciseCall,
+    exercisePut,
+    burnOption,
   }
 }

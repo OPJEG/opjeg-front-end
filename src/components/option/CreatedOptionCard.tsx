@@ -11,6 +11,10 @@ const StyledCol = styled(Col, { p: 0 })
 export default function CreatedOptionCard({ option }: { option: NFT }) {
   const { burnOption } = useOpjegFactory()
 
+  const optionType = option.traits.find(t => t.trait_type == 'Type')?.value
+  const strikePrice = option.traits.find(t => t.trait_type == 'Strike')?.value
+  const expiryDate = option.traits.find(t => t.trait_type == 'Expiry')?.value
+
   const burnHandler = () => {
     burnOption(option)
   }
@@ -29,6 +33,12 @@ export default function CreatedOptionCard({ option }: { option: NFT }) {
         <Container fluid css={{ p: 0 }}>
           <StyledRow>
             <StyledCol css={{ p: 0 }}>
+              { optionType == 'CALL' &&
+                <Text small css={{ p: '2px 10px', color: '#fff', borderRadius: 7, bg: '#17C964' }}>Call</Text>
+              }
+              { optionType == 'PUT' &&
+                <Text small css={{ p: '2px 10px', color: '#fff', borderRadius: 7, bg: '#F31260' }}>Put</Text>
+              }
               <Text h3>{ option.name || '#' + option.token_id }</Text>
               <Text b>{ option.asset_contract.name }</Text>
             </StyledCol>

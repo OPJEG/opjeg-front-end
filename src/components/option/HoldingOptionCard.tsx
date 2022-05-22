@@ -1,15 +1,17 @@
+import { useState } from "react"
 import { styled, Container, Row, Col, Card, Text, User, Button, Spacer, Image } from "@nextui-org/react";
 
 import { useOpjegFactory } from '../../hooks/useOpjegFactory'
 import NFT from '../../interfaces/NFT'
 import EthSymbol from '../EthSymbol'
 import EthAmount from '../EthAmount'
+import SelectNftModal from '../../views/account/components/SelectNftModal'
 
 const StyledRow = styled(Row, { m: 0 })
 const StyledCol = styled(Col, { p: 0 })
 
 export default function HoldingOptionCard({ option }: { option: NFT }) {
-  const { exerciseCall } = useOpjegFactory()
+  const { exerciseCall, exercisePut } = useOpjegFactory()
 
   const optionType = option.traits.find(t => t.trait_type == 'Type')?.value
   const strikePrice = option.traits.find(t => t.trait_type == 'Strike')?.value
@@ -22,8 +24,20 @@ export default function HoldingOptionCard({ option }: { option: NFT }) {
         break;
 
       case 'PUT':
+        setShowSelectNft(true)
         break;
     }
+  }
+
+  const [showSelectNft, setShowSelectNft] = useState(false)
+
+  const onSelectedNftModal = (nft: NFT) => {
+    exercisePut(option, nft)
+    setShowSelectNft(false)
+  }
+
+  const onCloseSelectNftModal = () => {
+    setShowSelectNft(false)
   }
 
   return (
@@ -44,7 +58,7 @@ export default function HoldingOptionCard({ option }: { option: NFT }) {
                 <Text small css={{ p: '2px 10px', color: '#fff', borderRadius: 7, bg: '#17C964' }}>Call</Text>
               }
               { optionType == 'PUT' &&
-                <Text small css={{ p: '2px 10px', color: '#fff', borderRadius: 7, bg: '#F31260' }}>Call</Text>
+                <Text small css={{ p: '2px 10px', color: '#fff', borderRadius: 7, bg: '#F31260' }}>Put</Text>
               }
               <Text h3>{ option.name || '#' + option.token_id }</Text>
               <Text b>{ option.asset_contract.name }</Text>
@@ -80,6 +94,11 @@ export default function HoldingOptionCard({ option }: { option: NFT }) {
                 Exercise
               </Button>
           </StyledRow>
+          <SelectNftModal
+            visible={showSelectNft}
+            selectHandler={onSelectedNftModal}
+            closeHandler={onCloseSelectNftModal}
+          />
         </Container>
       </Card.Footer>
     </Card>

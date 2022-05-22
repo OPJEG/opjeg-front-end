@@ -23,9 +23,13 @@ const AccountOptionCreation = () => {
   const [strikePrice, setStrikePrice] = useState<BigNumber|null>(null)
   const [expiryDate, setExpiryDate] = useState<Date|null>(null)
 
-  const enableSubmit = useMemo(() => {
+  const enableCallSubmit = useMemo(() => {
     return selectedNft && strikePrice && expiryDate
   }, [selectedNft, strikePrice, expiryDate])
+
+  const enablePutSubmit = useMemo(() => {
+    return strikePrice && expiryDate
+  }, [strikePrice, expiryDate])
 
   const OptionTypeGroup = () => {
     return (
@@ -55,20 +59,19 @@ const AccountOptionCreation = () => {
     setShowSelectNft(false)
   }
 
-  const onCreateOption = () => {
+  const onCreateCall = () => {
     if (!selectedNft) return
     if (!strikePrice) return
     if (!expiryDate) return
 
-    switch (optionType) {
-      case OptionType.CALL:
-        mintCall(selectedNft, strikePrice, expiryDate)
-        break
+    mintCall(selectedNft, strikePrice, expiryDate)
+  }
 
-      case OptionType.PUT:
-        mintPut()
-        break
-    }
+  const onCreatePut = () => {
+    if (!strikePrice) return
+    if (!expiryDate) return
+
+    mintPut(strikePrice, expiryDate)
   }
 
   const { account, active, chainId } = useWeb3React()
@@ -96,9 +99,20 @@ const AccountOptionCreation = () => {
           </Row>
           <Row css={{ pt: '15px' }}>
             <Col><Text size='$xs'>Type</Text></Col>
-            <Col><Text size='$xs'>NFT Token</Text></Col>
-            <Col><Text size='$xs'>Strike Price</Text></Col>
-            <Col><Text size='$xs'>Expires At</Text></Col>
+            { optionType == OptionType.CALL &&
+              <>
+                <Col><Text size='$xs'>NFT Token</Text></Col>
+                <Col><Text size='$xs'>Strike Price</Text></Col>
+                <Col><Text size='$xs'>Expires At</Text></Col>
+              </>
+            }
+            { optionType == OptionType.PUT &&
+              <>
+                <Col><Text size='$xs'>NFT Collection</Text></Col>
+                <Col><Text size='$xs'>Strike Price</Text></Col>
+                <Col><Text size='$xs'>Expires At</Text></Col>
+              </>
+            }
             <Col><Text>&nbsp;</Text></Col>
           </Row>
           <Row>
@@ -109,35 +123,60 @@ const AccountOptionCreation = () => {
                 </Row>
               </Container>
             </Col>
-            <Col>
-              <Container css={{ p: 0 }}>
-                <Row justify="flex-start" align="center">
-                  { selectedNft &&
-                    <>
-                      <Avatar squared src={selectedNft.image_thumbnail_url} />
-                      <Text>{ selectedNft.name || '#' + selectedNft.token_id }</Text>
-                    </>
-                  }
-                  <Button.Group css={{ m: 0 }}>
-                    <Button onPress={() => setShowSelectNft(true)}>Select NFT</Button>
-                  </Button.Group>
-                  <SelectNftModal
-                    visible={showSelectNft}
-                    selectHandler={onSelectedNftModal}
-                    closeHandler={onCloseSelectNftModal}
-                  />
-                </Row>
-              </Container>
-            </Col>
-            <Col>
-              <Input bordered labelRight="ETH" placeholder='0.00' onChange={(e) => setStrikePrice(utils.parseUnits(e.target.value))} aria-label="Strike Price" />
-            </Col>
-            <Col>
-              <Input bordered type="date" onChange={(e) => setExpiryDate(new Date(e.target.value))} aria-label="Expire At" />
-            </Col>
-            <Col>
-              <Button disabled={!enableSubmit} onPress={(e) => enableSubmit && onCreateOption()}>Create Option</Button>
-            </Col>
+            { optionType == OptionType.CALL &&
+              <>
+                <Col>
+                  <Container css={{ p: 0 }}>
+                    <Row justify="flex-start" align="center">
+                      { selectedNft &&
+                        <>
+                          <Avatar squared src={selectedNft.image_thumbnail_url} />
+                          <Text>{ selectedNft.name || '#' + selectedNft.token_id }</Text>
+                        </>
+                      }
+                      <Button.Group css={{ m: 0 }}>
+                        <Button onPress={() => setShowSelectNft(true)}>Select NFT</Button>
+                      </Button.Group>
+                      <SelectNftModal
+                        visible={showSelectNft}
+                        selectHandler={onSelectedNftModal}
+                        closeHandler={onCloseSelectNftModal}
+                      />
+                    </Row>
+                  </Container>
+                </Col>
+                <Col>
+                  <Input bordered labelRight="ETH" placeholder='0.00' onChange={(e) => setStrikePrice(utils.parseUnits(e.target.value))} aria-label="Strike Price" />
+                </Col>
+                <Col>
+                  <Input bordered type="date" onChange={(e) => setExpiryDate(new Date(e.target.value))} aria-label="Expire At" />
+                </Col>
+                <Col>
+                  <Button disabled={!enableCallSubmit} onPress={(e) => enableCallSubmit && onCreateCall()}>Create CALL</Button>
+                </Col>
+              </>
+            }
+            { optionType == OptionType.PUT &&
+              <>
+                <Col>
+                  <Container css={{ p: 0 }}>
+                    <Row justify="flex-start" align="center">
+                      <Avatar squared src='https://lh3.googleusercontent.com/Y7p_3t46aRi0cZtWcg775HSCv4N_SJHQg88mKhnyoQ1AfDatRWulxLwimDPMfjHtB-xdwDeEFYkFu8rmDrXo-VR5UwipSUV_HYjjWbk=s128' />
+                      <Text>Azuki God</Text>
+                    </Row>
+                  </Container>
+                </Col>
+                <Col>
+                  <Input bordered labelRight="ETH" placeholder='0.00' onChange={(e) => setStrikePrice(utils.parseUnits(e.target.value))} aria-label="Strike Price" />
+                </Col>
+                <Col>
+                  <Input bordered type="date" onChange={(e) => setExpiryDate(new Date(e.target.value))} aria-label="Expire At" />
+                </Col>
+                <Col>
+                  <Button disabled={!enablePutSubmit} onPress={(e) => enablePutSubmit && onCreatePut()}>Create PUT</Button>
+                </Col>
+              </>
+            }
           </Row>
         </Card>
       </Container>
