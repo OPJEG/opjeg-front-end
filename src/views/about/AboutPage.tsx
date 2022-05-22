@@ -1,49 +1,29 @@
-import styles from '../../styles/Home.module.css'
+import { Container, Row, Col, Text, Image, Button, Spacer, Link } from "@nextui-org/react";
+
+import Header from '../../components/Header'
 
 const About = () => {
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+    <main>
+      <Header
+        title='About'
+        subtitle=''
+        />
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-    </div>
+      <Container>
+        <Text h2>Buidlers</Text>
+        <Text size="large">
+          Made with ❤️ by <Link href="https://twitter.com/0xyoyoismee" target="_blank">0xyoyoismee</Link>, <Link href="https://twitter.com/jeantnd" target="_blank">jeantnd</Link>, <Link href="https://twitter.com/unnawut" target="_blank">unnawut</Link>
+        </Text>
+        <Text size="large">Contact us at <Link href="https://twitter.com/opjegfinance" target="_blank">https://twitter.com/opjegfinance</Link></Text>
+      </Container>
+      <Spacer y={2} />
+      <Container>
+        <Text h2>Source Code</Text>
+        <Text>Frontend: <Link href="https://github.com/OPJEG/opjeg-front-end" target="_blank">OPJEG/opjeg-front-end</Link></Text>
+        <Text>Smart contract: <Link href="https://github.com/OPJEG/opjeg-smart-contract" target="_blank">OPJEG/opjeg-smart-contract</Link></Text>
+      </Container>
+    </main>
   )
 }
 
