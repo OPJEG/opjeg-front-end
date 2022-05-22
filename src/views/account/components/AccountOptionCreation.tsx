@@ -12,7 +12,7 @@ import NFT from '../../../interfaces/NFT'
 import OptionType from '../../../interfaces/OptionType'
 
 const AccountOptionCreation = () => {
-  const { mintCall, mintPut } = useOpjegFactory()
+  const { mintCall, mintPut, getCreatedOptions } = useOpjegFactory()
 
   const [optionType, setOptionType] = useState<OptionType>(OptionType.CALL)
   const [showSelectNft, setShowSelectNft] = useState(false)
@@ -80,13 +80,19 @@ const AccountOptionCreation = () => {
   const options = {method: 'GET', headers: {Accept: 'application/json'}}
 
   useEffect(() => {
-    if (!active || !chainId) return
+    if (!active || !chainId || !account) return
 
-    fetch(`https://testnets-api.opensea.io/api/v1/assets?owner=${account}&asset_contract_address=${opjegContract[chainId]}&order_direction=desc&limit=100&include_orders=false`, options)
-      .then(response => response.json())
-      .then(response => setCreatedOptions(response.assets))
-      .catch(err => console.error(err))
-      .finally(() => setIsLoading(false))
+    (async () => {
+      const createdTokenIds = await getCreatedOptions(account)
+      const tokenIdsQueryString = createdTokenIds.reduce((acc: string, id: string) => acc + `token_ids=${id}&`, '')
+
+      fetch(`https://testnets-api.opensea.io/api/v1/assets?${tokenIdsQueryString}&asset_contract_address=${opjegContract[chainId]}&order_direction=desc&limit=100&include_orders=false`, options)
+        .then(response => response.json())
+        .then(response => setCreatedOptions(response.assets))
+        .catch(err => console.error(err))
+        .finally(() => setIsLoading(false))
+    })()
+
   }, [chainId])
 
   return (

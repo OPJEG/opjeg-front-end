@@ -27,6 +27,13 @@ export const useOpjegFactory = () => {
     return ContractFactory
   }
 
+  const getCreatedOptions = async (address: string) => {
+    const contract = await getContract()
+    if (!contract) return null
+
+    return await contract.listBag(address)
+  }
+
   const getOptionData = async (tokenId: number) => {
     const contract = await getContract()
     if (!contract) return null
@@ -116,6 +123,8 @@ export const useOpjegFactory = () => {
   }
 
   return {
+    getOptionData,
+    getCreatedOptions,
     mintCall,
     mintPut,
     exerciseCall,
