@@ -1,12 +1,19 @@
-import React, { useState } from 'react'
-import { Container, Row, Col, Text, Image, Button, Spacer, Link } from "@nextui-org/react";
-import { useWeb3React } from "@web3-react/core"
+import { Container, Row, Col, Image, Button, Link } from "@nextui-org/react";
+import { useWeb3React } from "@web3-react/core";
 
-import { useConnectWallet } from "../hooks/useConnectWallet"
+import { useConnectWallet } from "../hooks/useConnectWallet";
+import { useEagerConnect } from "../hooks/useEagerConnect";
+import { useInactiveListener } from "../hooks/useInactiveListener";
+import { shortenAddress } from "../utils/address";
 
 export default function Navbar() {
-  const { metamask } = useConnectWallet()
-  const { account, activate, deactivate, active } = useWeb3React()
+  const triedEager = useEagerConnect();
+  const { metamask } = useConnectWallet();
+
+  const { account, deactivate, active } = useWeb3React();
+
+  // when not connected, try activating the injected connector, if it exists
+  useInactiveListener(!triedEager);
 
   return (
     <>
